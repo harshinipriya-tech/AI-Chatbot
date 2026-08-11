@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 from huggingface_hub import InferenceClient
 
@@ -10,7 +9,6 @@ st.set_page_config(
 st.title("🤖 My AI Chatbot")
 st.write("Welcome! Ask me anything.")
 
-# Connect to Hugging Face
 client = InferenceClient(
     token=st.secrets["HF_TOKEN"]
 )
@@ -18,7 +16,6 @@ client = InferenceClient(
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display previous messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
@@ -43,7 +40,7 @@ if prompt:
 
         answer = response.choices[0].message.content
 
-    except Exception as e:
+    except Exception:
         answer = "Sorry, I couldn't connect to the AI service."
 
     with st.chat_message("assistant"):
@@ -53,4 +50,3 @@ if prompt:
         "role": "assistant",
         "content": answer
     })
-```
